@@ -7,7 +7,7 @@ const InfoSchema = new Schema({
     required: true,
   },
   tableId: {
-    type: String
+    type: String,
   },
   userId: {
     type: String,
@@ -100,6 +100,7 @@ module.exports.getAvailableTables = async (
 ) => {
   const allTables = restaurants.map((restaurant) => restaurant.tableId);
   // console.log(getReservedRestaurants);
+
   const reservedTables = getReservedRestaurants.map((getReservedRestaurant) => {
     return getReservedRestaurant.tableId;
   });
@@ -109,7 +110,6 @@ module.exports.getAvailableTables = async (
   const availableTables = allTables.filter(
     (allTable) => !reservedTables.includes(allTable)
   );
-
   const availableTablesWithBody = availableTables.map((availableTable) => {
     for (let i = 0; i < restaurants.length; i++) {
       if (availableTable === restaurants[i].tableId) return restaurants[i];
@@ -124,13 +124,13 @@ module.exports.getAvailableRestaurants = (availableTablesWithBody) => {
 
   const uniqueRestauarants = [];
 
-  const restauarntIds = availableTablesWithBody.map(
+  const restaurantIds = availableTablesWithBody.map(
     (availableTableWithBody) => {
       return availableTableWithBody.id;
     }
   );
-
-  for (const restaurantId of restauarntIds) {
+  
+  for (const restaurantId of restaurantIds) {
     // for (const uniqueRestaurant of uniqueRestauarants) {
     if (!uniqueRestauarants.includes(restaurantId))
       uniqueRestauarants.push(restaurantId);
@@ -139,8 +139,8 @@ module.exports.getAvailableRestaurants = (availableTablesWithBody) => {
 
   const availableRestaurantsWithBody = uniqueRestauarants.map(
     (uniqueRestaurant) => {
-      for (let i = 0; i < uniqueRestauarants.length; i++) {
-        if (uniqueRestaurant === availableTablesWithBody[i].id)
+      for (let i = 0; i < availableTablesWithBody.length; i++) {
+        if (uniqueRestaurant == availableTablesWithBody[i].id)
           return availableTablesWithBody[i];
       }
     }
@@ -154,4 +154,5 @@ module.exports.getAvailableRestaurants = (availableTablesWithBody) => {
 
 //console.log(getAvailableRestaurants());
 
-module.exports.getRestaurantInfoById = (restaurantId) => InfoModel.find({restaurantId})
+module.exports.getRestaurantInfoById = (restaurantId) =>
+  InfoModel.find({ restaurantId });

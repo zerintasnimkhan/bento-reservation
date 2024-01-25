@@ -60,30 +60,36 @@ const CategoryList = () => {
   console.log(cuisineInfo);
 
   return (
-    <div>
-      <Flex style={{ width: "100vw" }}>
+    <div style={{ width: "100vw", height: "9vh", overflow: "auto" }}>
+      <Flex style={{ width: "100vw", marginLeft: "5vw" }}>
         {cuisineInfo?.map((cuisine) => (
           <Flex
             gap="2"
             vertical
             style={{
-              flexDirection: "row",
+              flexDirection: "column",
               flexWrap: "wrap",
-              // marginLeft: "5vw",
+              minWidth: "22vw",
+              alignItems: "center",
             }}
             key={cuisine?._id}
           >
             <img
               style={{
-                borderRadius: "40%",
-                width: "10vw",
-                height: "7vh",
-                marginLeft: "1vw",
+                borderRadius: "7.5vw",
+                width: "15vw",
+                height: "15vw",
               }}
               src={cuisine?.cuisineImg}
             ></img>
 
-            <h3 style={{ fontSize: "12px", marginTop: "1px" }}>
+            <h3
+              style={{
+                fontSize: "0.75rem",
+                marginTop: "0.4",
+                textAlign: "center",
+              }}
+            >
               {cuisine?.cuisineName}
             </h3>
           </Flex>

@@ -5,11 +5,14 @@ const {
   getAvailableRestaurants,
   getRestaurantInfoById,
 } = require("../models/info.model");
-const { restaurants } = require("../data/restaurantList.js");
+// const { restaurants } = require("../data/restaurantList.js");
+
 const InfoModel = require("../models/info.model");
 const {
   getAllRestaurants,
   getRestaurantById,
+  getAllTables,
+  getRestaurantDetails
 } = require("../services/restaurant.service.js");
 module.exports.createReservation = async (req, res) => {
   try {
@@ -72,41 +75,26 @@ module.exports.createReservation = async (req, res) => {
 };
 
 module.exports.allAvailableRestaurants = async (req, res) => {
-  // console.log(allAvailableRestaurants());
+  
   try {
-    // const startTime = "2024-01-17T07:30:00.000Z";
-    // const endTime = "2024-01-17T09:30:00.000Z";
-
-    //
+  
     const { startTime, endTime } = req.body;
-
-    console.log(startTime, endTime);
-    // console.log(startTime);
-    //const time = sessionStorage.getItem(accessToken);
-    // const startTimeCorrected = `${startTime.split("T")[0]}T${
-    //   startTime.split("T")[1]
-    // }`;
-    // const startTimeCorrected= ISODate(startTime)
-    // console.log(startTimeCorrected);
     const reservedRestaurants = await getReservedRestaurants(
-      // req.body.startTime,
-      //  req.body.endTime
       startTime,
       endTime
     );
-
-    // console.log(reservedRestaurants);
+    const allTables = await getAllTables();
+    // console.log(allTables)
     const availableTables = await getAvailableTables(
-      restaurants,
+      allTables,
       reservedRestaurants
     );
-    //console.log(availableTables);
     const availableRestaurants = getAvailableRestaurants(availableTables);
-    // console.log(availableRestaurants);
-
+      
+    const availableRestaurantsWithAllDetails = await getRestaurantDetails(availableRestaurants);
+    console.log(availableRestaurantsWithAllDetails)
     res.status(200).json({ availableRestaurants: availableRestaurants });
 
-    // console.log(reservedRestaurants);
   } catch (error) {
     console.log(error);
   }
@@ -125,14 +113,16 @@ module.exports.fetchRestaurantById = async (req, res) => {
 
 module.exports.getAllRestaurants = async (req, res) => {
   try {
-    const response = await getAllRestaurants();
-    if (!response.ok) {
-      throw new Error(`Failed to fetch data. Status: ${response.status}`);
+    const restaurants = await getAllRestaurants();
+    if (!restaurants) {
+      return res.status(404).json({ error: 'Restaurant not found' });
     }
-    const data = await response.json();
-    res.json(data);
+
+    res.json(restaurants);
   } catch (error) {
     console.error("Error:", error.message);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+

@@ -21,7 +21,7 @@ const restaurants = [
     tableId: "2",
     tableCapacity: "4",
     about:
-      "Good for Groups Street Parking Established in 2017. The Blue Pea Flower is indigenous to Thailand and is used in many dishes, the most striking feature of this plant is the color of the flower, vivid deep blue. This edible herbal flower is used in our dishes to give a wonderful color and light flavor... Blue Pea brings a new cuisine to San Francisco's historic Magazine mission district. We take classic Asian flavors and construct modern multi-layered dishes that appeal to sophisticated palates. Pair with our extensive Soju cocktails and selection of delicious wines. Enjoy dinner here and spend some time exploring this amazing neighborhood.",
+      "Good for Groups Street Parking Established in 2017. The Blue Pea Flower is indigenous to Thailand and is used in many... see more",
     lng: "-77.0364",
     lat: "38.8951",
     likes: "92%",
