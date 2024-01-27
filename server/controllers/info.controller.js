@@ -125,4 +125,15 @@ module.exports.getAllRestaurants = async (req, res) => {
   }
 };
 
+module.exports.getReservationByRestaurantId = async (req, res) => {
+  try {
+    const restaurantId = req.params.restaurantId;
+    const reservation = getRestaurantById(restaurantId);
+    return res.status(200).json(restaurant);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Error getting restaurant by ID" });
+  }
+};
+
 
