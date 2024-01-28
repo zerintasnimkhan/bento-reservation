@@ -4,6 +4,9 @@ const {
   getAvailableTables,
   getAvailableRestaurants,
   getRestaurantInfoById,
+  allReservationsByRestaurantId,
+  allReservationsByRestaurantIdAndDate,
+  changeReservationStatus
 } = require("../models/info.model");
 // const { restaurants } = require("../data/restaurantList.js");
 
@@ -16,7 +19,7 @@ const {
 } = require("../services/restaurant.service.js");
 module.exports.createReservation = async (req, res) => {
   try {
-    console.log(req.body);
+    // console.log(req.body);
     const {
       restaurantId,
       tableId,
@@ -126,13 +129,43 @@ module.exports.getAllRestaurants = async (req, res) => {
   }
 };
 
-module.exports.getReservationByRestaurantId = async (req, res) => {
+module.exports.getReservationsByRestaurantId = async (req, res) => {
   try {
     const restaurantId = req.params.restaurantId;
-    const reservation = getRestaurantById(restaurantId);
-    return res.status(200).json(restaurant);
+    const reservations = await allReservationsByRestaurantId(restaurantId);
+    // console.log(reservations);
+    return res.status(200).json(reservations);
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "Error getting restaurant by ID" });
   }
 };
+
+module.exports.getReservationsByRestaurantIdAndDate = async (req, res) => {
+  try {
+    const restaurantId = req.params.restaurantId;
+    const date = req.params.date; 
+    // console.log(date)
+    const reservations = await allReservationsByRestaurantIdAndDate(restaurantId,date);
+    // console.log(reservations);
+    return res.status(200).json(reservations);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Error getting restaurant by ID" });
+  }
+};
+
+module.exports.changeReservationStatus = async (req,res) =>{
+  try {
+    const reservationId = req.params.reservationId; 
+    const reservationStatus = req.params.status; 
+    // console.log(date)
+    const changedReservation = await InfoModel.changeRerservationStatus(reservationId, reservationStatus);
+    // console.log(reservations);
+    return res.status(200).json(changedReservation);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Error getting restaurant by ID" });
+  }
+
+}

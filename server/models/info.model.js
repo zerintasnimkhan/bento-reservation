@@ -129,7 +129,7 @@ module.exports.getAvailableRestaurants = (availableTablesWithBody) => {
       return availableTableWithBody.id;
     }
   );
-  
+
   for (const restaurantId of restaurantIds) {
     // for (const uniqueRestaurant of uniqueRestauarants) {
     if (!uniqueRestauarants.includes(restaurantId))
@@ -156,3 +156,26 @@ module.exports.getAvailableRestaurants = (availableTablesWithBody) => {
 
 module.exports.getRestaurantInfoById = (restaurantId) =>
   InfoModel.find({ restaurantId });
+
+module.exports.allReservationsByRestaurantId = async (restaurantId) => {
+  return await InfoModel.find({ restaurantId });
+};
+
+module.exports.allReservationsByRestaurantIdAndDate = async (
+  restaurantId,
+  date
+) => {
+  console.log(date);
+  return await InfoModel.find({ restaurantId, date });
+};
+
+module.exports.changeRerservationStatus = async (
+  reservationId,
+  reservationStatus
+) => {
+  return await InfoModel.findOneAndUpdate(
+    { _id: reservationId },
+    { $set: { status: reservationStatus } },
+    { returnNewDocument: true }
+  );
+};

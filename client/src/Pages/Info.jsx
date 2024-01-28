@@ -2,8 +2,9 @@ import { Flex, Form, Input, Card, Button, Divider } from "antd";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import RestaurantInfo from "./RestaurantInfo";
+import { fetchRestaurantInfo } from "../services/restaurant.service";
 
-function Info({ reservationInfo }) {
+function Info() {
   const { restaurantId } = useParams();
   const { userId } = useParams();
   const navigate = useNavigate();
@@ -104,7 +105,16 @@ function Info({ reservationInfo }) {
       numberOfPeople,
     });
   }, [restaurantId]);
-  console.log(reservation);
+  //console.log(reservation);
+
+  const [restaurantDetails, setRestaurantDetails] = useState(null);
+
+  useEffect(() => {
+    fetchRestaurantInfo(restaurantId).then((data) => {
+      setRestaurantDetails(data);
+    });
+  }, [restaurantId]);
+  //console.log(restaurantDetails);
 
   const formatDate = (inputDate) => {
     const options = { year: "numeric", month: "short", day: "numeric" };
@@ -115,8 +125,16 @@ function Info({ reservationInfo }) {
     return formattedDate;
   };
   const formatTime = (inputTime) => {
-    const options = { hour: 'numeric', minute: '2-digit', hour12: true, timeZone: 'UTC' };
-    const formattedTime = new Date(inputTime).toLocaleTimeString('en-US', options);
+    const options = {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+      timeZone: "UTC",
+    };
+    const formattedTime = new Date(inputTime).toLocaleTimeString(
+      "en-US",
+      options
+    );
     return formattedTime;
   };
   const formattedDate = formatDate(reservation.date);
@@ -129,11 +147,33 @@ function Info({ reservationInfo }) {
         <hr></hr>
       </div>
       <div style={{ marginLeft: "5vw", marginRight: "5vw" }}>
-        <h2>KFC</h2>
-        <p>
-          {formattedDate} at {formattedTime}
-        </p>
-        <p>{reservation.numberOfPeople} people</p>
+         <h3 style={{ marginTop: "1vh" }}>
+          {restaurantDetails?.restaurantName}
+        </h3> 
+        <Flex
+          gap="small"
+          vertical
+          style={{ flexDirection: "row", width: "100%" }}
+        >
+          <img
+            style={{ width: "1.5rem", height: "1.5rem" }}
+            src="https://res.cloudinary.com/dwrwwcvfb/image/upload/v1706436470/reminder_bq7vir.png"
+          ></img>
+          <p>
+            {formattedDate} at {formattedTime}
+          </p>
+        </Flex>
+        <Flex
+          gap="small"
+          vertical
+          style={{ flexDirection: "row", width: "100%" }}
+        >
+          <img
+            style={{ width: "1.5rem", height: "1.5rem" }}
+            src="https://res.cloudinary.com/dwrwwcvfb/image/upload/v1706435048/people_hnqye3.png"
+          ></img>
+          <p>{reservation.numberOfPeople} people</p>
+        </Flex>
         <Button
           style={{
             backgroundColor: "#038851",
@@ -143,7 +183,7 @@ function Info({ reservationInfo }) {
             paddingTop: "1vh",
             paddingBottom: "4vh",
             fontSize: "16px",
-            marginTop:"1vh"
+            marginTop: "1vh",
           }}
           onClick={handleEdit}
         >
@@ -152,7 +192,15 @@ function Info({ reservationInfo }) {
         <Divider></Divider>
       </div>
       <div style={{ marginLeft: "5vw", marginRight: "5vw" }}>
-        <h3 style={{marginBottom:"2vh", fontSize:"1.3rem", fontWeight:"inherit"}}>Your Information</h3>
+        <h3
+          style={{
+            marginBottom: "2vh",
+            fontSize: "1.3rem",
+            fontWeight: "inherit",
+          }}
+        >
+          Your Information
+        </h3>
         <Form>
           <Flex
             gap="middle"
@@ -169,7 +217,7 @@ function Info({ reservationInfo }) {
           <Form.Item label="Email">
             <Input></Input>
           </Form.Item>
-          <Form.Item label="Requests (optional)" >
+          <Form.Item label="Requests (optional)">
             <Input></Input>
           </Form.Item>
           <Divider></Divider>
