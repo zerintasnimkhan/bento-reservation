@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Image, Flex, Layout } from "antd";
 import { useNavigate } from "react-router-dom";
 //import "./App.css";
-import Kard from "../components/Kard.component";
+//import Kard from "../components/Kard.component";
 import MapComponent from "../components/Map.component";
 //import Reserve from "./Reserve";
 import { useParams } from "react-router-dom";
@@ -92,9 +92,14 @@ const RestaurantInfo = () => {
         <Flex
           gap="middle"
           vertical
-          style={{ flexDirection: "row", width: "100%" }}
+          style={{
+            flexDirection: "row",
+            width: "100%",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
         >
-          <div style={{ marginTop: "5vw", marginLeft: "50vw" }}>
+          <div style={{ marginTop: "5vw" }}>
             <Flex
               gap="middle"
               vertical
@@ -104,17 +109,29 @@ const RestaurantInfo = () => {
                 justifyContent: "space-between",
               }}
             >
+              <p style={{ justifyContent: "left", marginTop: "1vh" }}>
+                {restaurantInfo?.cuisines}
+              </p>
               <img
                 style={{ width: "1.8rem", height: "2rem" }}
                 src="https://res.cloudinary.com/dwrwwcvfb/image/upload/v1706020091/like_w0xnax.png"
               ></img>
-              <p style={{ marginTop: "1vh" }}>52</p>
+              <p
+                style={{
+                  marginTop: "1vh",
+                  justifyContent: "center",
+                  marginLeft: "-2.5vw",
+                }}
+              >
+                52%
+              </p>
               <Button
                 style={{
                   backgroundColor: "#038851",
                   color: "white",
                   paddingTop: "1.2vh",
                   paddingBottom: "3.5vh",
+                  justifyContent: "right",
                 }}
                 onClick={handleReserve}
               >
@@ -123,8 +140,35 @@ const RestaurantInfo = () => {
             </Flex>
           </div>
         </Flex>
+        <h3 style={{ marginTop: "2vh" }}>
+          Get quick service (1 hour duration):
+        </h3>
+        <Flex
+          wrap="wrap"
+          gap="large"
+          style={{ marginTop: "1vh", marginBottom: "1vh" }}
+        >
+          {Array.from(
+            {
+              length: 3,
+            },
+            (_, i) => (
+              <Button
+                key={i}
+                type="primary"
+                style={{
+                  width: "7rem",
+                  height: "2.5rem",
+                  backgroundColor: "#038851",
+                }}
+              >
+                8:00 pm
+              </Button>
+            )
+          )}
+        </Flex>
 
-        <h3>About</h3>
+        <h3 style={{ marginTop: "2vh", marginBottom:"1.2vh" }}>About</h3>
         <p style={{ textOverflow: "ellipsis" }}>{restaurantInfo?.about}</p>
       </div>
       <div style={{ marginLeft: "5vw", marginRight: "5vw", maxWidth: "90vw" }}>
@@ -132,7 +176,7 @@ const RestaurantInfo = () => {
       </div>
       <div style={{ marginLeft: "5vw", paddingRight: "5vw" }}>
         <div>
-          <h3>Photos</h3>
+          <h3 style={{ marginBottom:"1.2vh" }}>Photos</h3>
         </div>
         <Flex wrap="wrap" gap="middle" style={{ width: "90vw" }}>
           {Array.from(
@@ -141,16 +185,16 @@ const RestaurantInfo = () => {
             },
             (_, i) => (
               <Image
-                key={i}
+                // key={i}
                 type="primary"
                 style={{ width: "43vw", height: "10rem" }}
-                src="https://images.ctfassets.net/awb1we50v0om/2Spf80TME2zIhLqsi3Zxv9/919421a45f3260ee426c99c35235f1c8/Plates03__3__copy3.jpg?q=70&w=1920"
+                src={restaurantInfo?.restaurantAmbianceImages[i]}
               ></Image>
             )
           )}
         </Flex>
       </div>
-      <div style={{ marginLeft: "5vw", marginRight: "5vw", maxWidth: "40vw" }}>
+      {/* <div style={{ marginLeft: "5vw", marginRight: "5vw", maxWidth: "40vw" }}>
         <h3>What are people saying?</h3>
 
         <Kard></Kard>
@@ -160,10 +204,11 @@ const RestaurantInfo = () => {
         <Kard></Kard>
         <br></br>
         <Kard></Kard>
-      </div>
-      <p style={{ fontSize: "18px", paddingLeft: "60px", color: "#038851" }}>
+      </div> */}
+      {/* <p style={{ fontSize: "18px", paddingLeft: "60px", color: "#038851" }}>
         Read reviews for Z & Y Restaurant
-      </p>
+      </p> */}
+      <br></br>
       <hr></hr>
       <div
         style={{
