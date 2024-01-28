@@ -6,8 +6,8 @@ import Kard from "../components/Kard.component";
 import MapComponent from "../components/Map.component";
 //import Reserve from "./Reserve";
 import { useParams } from "react-router-dom";
+import { fetchRestaurantInfo } from "../services/restaurant.service";
 const Footer = Layout;
-
 
 const footerStyle = {
   textAlign: "center",
@@ -17,29 +17,14 @@ const footerStyle = {
   paddingTop: "10px",
 };
 const RestaurantInfo = () => {
-
   const { restaurantId } = useParams();
 
   const [restaurantInfo, setRestaurantInfo] = useState(null);
 
   useEffect(() => {
-    const fetchRestaurantInfo = async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:1234/getRestaurant/${restaurantId}`
-        );
-        if (!response.ok) {
-          throw new Error(
-            `Failed to fetch restaurant details (status: ${response.status})`
-          );
-        }
-        const restaurantData = await response.json();
-        setRestaurantInfo(restaurantData);
-      } catch (error) {
-        console.error("Error fetching restaurant details:", error.message);
-      }
-    };
-    fetchRestaurantInfo();
+    fetchRestaurantInfo(restaurantId).then((data) => {
+      setRestaurantInfo(data);
+    });
   }, [restaurantId]);
   console.log(restaurantInfo);
   // const {
@@ -74,7 +59,7 @@ const RestaurantInfo = () => {
           width="100vw"
           height="20vh"
           style={{ filter: "brightness(45%)" }}
-          src="https://www.posist.com/restaurant-times/wp-content/uploads/2016/06/louis-hansel-wVoP_Q2Bg_A-unsplash-1536x1024.jpg"
+          src={restaurantInfo?.restaurantCoverPhoto}
         />
         <div
           style={{
@@ -92,7 +77,7 @@ const RestaurantInfo = () => {
               borderColor: "green",
             }}
           >
-            {restaurantInfo?.name}
+            {restaurantInfo?.restaurantName}
           </p>
         </div>
       </div>
@@ -113,13 +98,17 @@ const RestaurantInfo = () => {
             <Flex
               gap="middle"
               vertical
-              style={{ flexDirection: "row", width: "100%" }}
+              style={{
+                flexDirection: "row",
+                width: "100%",
+                justifyContent: "space-between",
+              }}
             >
               <img
                 style={{ width: "1.8rem", height: "2rem" }}
                 src="https://res.cloudinary.com/dwrwwcvfb/image/upload/v1706020091/like_w0xnax.png"
               ></img>
-              <p style={{marginTop: "1vh"}}>52</p>
+              <p style={{ marginTop: "1vh" }}>52</p>
               <Button
                 style={{
                   backgroundColor: "#038851",
@@ -136,8 +125,7 @@ const RestaurantInfo = () => {
         </Flex>
 
         <h3>About</h3>
-        <p style={{textOverflow:"ellipsis"}}>{restaurantInfo?.about}</p>
-
+        <p style={{ textOverflow: "ellipsis" }}>{restaurantInfo?.about}</p>
       </div>
       <div style={{ marginLeft: "5vw", marginRight: "5vw", maxWidth: "90vw" }}>
         <MapComponent></MapComponent>

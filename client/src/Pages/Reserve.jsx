@@ -53,7 +53,7 @@ const Reserve = () => {
   const HandleSaveToken = async () => {
     //const token = reservationData;
     const dataToSendString = await JSON.stringify(dataToSend);
-    console.log(dataToSendString)
+    console.log(dataToSendString);
     await sessionStorage.setItem("reservationInfo", dataToSendString);
     console.log("token saved successfully");
   };
@@ -63,7 +63,7 @@ const Reserve = () => {
 
   const navigate = useNavigate();
 
-  const handleFindRestaurant = async() => {
+  const handleFindRestaurant = async () => {
     try {
       await HandleSaveToken();
       navigate("/restaurant-list");
@@ -83,7 +83,6 @@ const Reserve = () => {
 
   const handleEndTime = (timeInterval) => {
     const originalTime = parse(dataToSend.startTime, "h:mm a", new Date());
-    console.log(dataToSend.startTime);
     // Step 2: Add 14 hours to the Date object to move from 11pm to 1pm
     const convertedTime = addHours(originalTime, timeInterval);
 
@@ -94,28 +93,27 @@ const Reserve = () => {
   //console.log(dataToSend);
 
   const handleTime = (time) => {
-    console.log(time);
-
     setDataToSend((prev) => ({ ...prev, startTime: time }));
   };
   //console.log(dataToSend);
 
   const handleNumOfPeople = (people) => {
-    console.log(people);
-
     setDataToSend((prev) => ({ ...prev, numOfPeople: people }));
   };
   //console.log(dataToSend);
 
   return (
-    <div className="App" style={{ maxWidth: "100vw" }}>
+    <div
+      className="App"
+      style={{ maxWidth: "100vw", minHeight: "100vh", top: "1vh!important" }}
+    >
       <div
         className="Container"
         style={{
           position: "relative",
           textAlign: "center",
           color: "white",
-          marginTop: "-30vw",
+          marginTop: "30vw",
         }}
       >
         <Image
@@ -127,9 +125,9 @@ const Reserve = () => {
         <div
           style={{
             position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
+            // top: "50%",
+            // left: "50%",
+            // transform: "translate(-50%, -50%)",
           }}
         >
           <p
@@ -273,7 +271,6 @@ const Reserve = () => {
           width: "100%",
         }}
       >
-        
         <Button
           style={{
             backgroundColor: "#038851",

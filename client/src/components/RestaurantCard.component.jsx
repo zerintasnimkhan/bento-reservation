@@ -73,7 +73,7 @@ const RestaurantCard = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        console.log("real restaurant list", data);
         setAvailableRestaurants(data.availableRestaurants);
       })
       .catch((error) => console.error("Error fetching data:", error));
@@ -110,12 +110,36 @@ const RestaurantCard = () => {
           >
             <h2>{restaurant.name}</h2>
             <img
-              style={{ width: "1.5rem", height: "1.5rem", marginLeft:"auto", marginRight:"0"}}
+              style={{
+                width: "1.5rem",
+                height: "1.5rem",
+                marginLeft: "auto",
+                marginRight: "0",
+              }}
               src="https://res.cloudinary.com/dwrwwcvfb/image/upload/v1706020091/like_w0xnax.png"
             ></img>
-            <p style={{marginTop:"0.5vh", marginLeft:"-3vw", fontWeight:"bold"}}>{restaurant.likes}</p>
+            <p
+              style={{
+                marginTop: "0.5vh",
+                marginLeft: "-3vw",
+                fontWeight: "bold",
+              }}
+            >
+              {restaurant.likes}
+            </p>
           </Flex>
-          <p style={{marginTop:"0.5vh", marginLeft:"-3vw", marginLeft:"auto", marginRight:"0", fontSize:"1rem", marginTop:"-0.8vh"}}>{restaurant.cuisine}</p>
+          <p
+            style={{
+              marginTop: "0.5vh",
+              marginLeft: "-3vw",
+              marginLeft: "auto",
+              marginRight: "0",
+              fontSize: "1rem",
+              marginTop: "-0.8vh",
+            }}
+          >
+            {restaurant.cuisine}
+          </p>
         </Card>
       ))}
     </div>

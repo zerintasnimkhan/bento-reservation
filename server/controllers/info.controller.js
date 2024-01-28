@@ -12,7 +12,7 @@ const {
   getAllRestaurants,
   getRestaurantById,
   getAllTables,
-  getRestaurantDetails
+  getRestaurantDetails,
 } = require("../services/restaurant.service.js");
 module.exports.createReservation = async (req, res) => {
   try {
@@ -75,9 +75,7 @@ module.exports.createReservation = async (req, res) => {
 };
 
 module.exports.allAvailableRestaurants = async (req, res) => {
-  
   try {
-  
     const { startTime, endTime } = req.body;
     const reservedRestaurants = await getReservedRestaurants(
       startTime,
@@ -90,11 +88,14 @@ module.exports.allAvailableRestaurants = async (req, res) => {
       reservedRestaurants
     );
     const availableRestaurants = getAvailableRestaurants(availableTables);
-      
-    const availableRestaurantsWithAllDetails = await getRestaurantDetails(availableRestaurants);
-    console.log(availableRestaurantsWithAllDetails)
-    res.status(200).json({ availableRestaurants: availableRestaurants });
 
+    const availableRestaurantsWithAllDetails = await getRestaurantDetails(
+      availableRestaurants
+    );
+    // console.log(availableRestaurantsWithAllDetails);
+    res
+      .status(200)
+      .json({ availableRestaurants: availableRestaurantsWithAllDetails });
   } catch (error) {
     console.log(error);
   }
@@ -103,7 +104,7 @@ module.exports.allAvailableRestaurants = async (req, res) => {
 module.exports.fetchRestaurantById = async (req, res) => {
   try {
     const restaurantId = req.params.restaurantId;
-    const restaurant = getRestaurantById(restaurantId);
+    const restaurant = await getRestaurantById(restaurantId);
     return res.status(200).json(restaurant);
   } catch (error) {
     console.error(error);
@@ -115,7 +116,7 @@ module.exports.getAllRestaurants = async (req, res) => {
   try {
     const restaurants = await getAllRestaurants();
     if (!restaurants) {
-      return res.status(404).json({ error: 'Restaurant not found' });
+      return res.status(404).json({ error: "Restaurant not found" });
     }
 
     res.json(restaurants);
@@ -135,5 +136,3 @@ module.exports.getReservationByRestaurantId = async (req, res) => {
     return res.status(500).json({ error: "Error getting restaurant by ID" });
   }
 };
-
-
