@@ -8,6 +8,8 @@ function Info() {
   const { restaurantId } = useParams();
   const { userId } = useParams();
   const navigate = useNavigate();
+  const [reservation, setReservation] = useState({});
+
   const handleEdit = async () => {
     try {
       navigate("/reserve");
@@ -43,9 +45,10 @@ function Info() {
   let endTime = "";
 
   function convertToDatetimeString(date, time) {
+ 
     try {
       const dateTimeString = `${date} ${time}`;
-
+      console.log(dateTimeString)
       const dateTime = new Date(dateTimeString);
       const dateTimeInLocal = new Date(
         dateTime.toLocaleString("en-US", { timeZone: "Asia/Dhaka" })
@@ -73,7 +76,6 @@ function Info() {
       console.error("Error converting to datetime:", error);
     }
   }
-  const [reservation, setReservation] = useState({});
 
   useEffect(() => {
     const reservationInfo = JSON.parse(
@@ -82,7 +84,7 @@ function Info() {
     //setReservation(data.reservationInfo);
 
     const date = reservationInfo.date;
-
+    
     const startTime = convertToDatetimeString(
       reservationInfo.date,
       reservationInfo.startTime
@@ -95,17 +97,20 @@ function Info() {
     //setReservation(data.reservationInfo);
     const userId = 1;
     const tableId = 1;
+
+    const convertedDate = convertToDatetimeString(reservationInfo.date, `12:00 AM`)
+
     setReservation({
       tableId,
       restaurantId,
       userId,
-      date,
+      date : convertedDate,
       startTime,
       endTime,
       numberOfPeople,
     });
   }, [restaurantId]);
-  //console.log(reservation);
+  // console.log(reservation);
 
   const [restaurantDetails, setRestaurantDetails] = useState(null);
 
@@ -147,9 +152,9 @@ function Info() {
         <hr></hr>
       </div>
       <div style={{ marginLeft: "5vw", marginRight: "5vw" }}>
-         <h3 style={{ marginTop: "1vh" }}>
+        <h3 style={{ marginTop: "1vh" }}>
           {restaurantDetails?.restaurantName}
-        </h3> 
+        </h3>
         <Flex
           gap="small"
           vertical
