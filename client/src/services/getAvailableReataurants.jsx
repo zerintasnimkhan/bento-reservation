@@ -4,7 +4,7 @@ const getAvailableRestaurants = async (reservationInformation) => {
     const res = await fetch(url, { headers: `${reservationInformation}` });
     return res.formData;*/
 
-    const response = await fetch("http://localhost:1234", {
+    const response = await fetch("https://bento-reservation-zerin.koyeb.app", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

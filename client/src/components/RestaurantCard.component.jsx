@@ -64,7 +64,7 @@ const RestaurantCard = () => {
       reservationInfo.endTime
     );
 
-    fetch("http://localhost:1234/availableRestaurants", {
+    fetch("https://bento-reservation-zerin.koyeb.app/availableRestaurants", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
