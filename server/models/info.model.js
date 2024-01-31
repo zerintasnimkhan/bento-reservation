@@ -1,5 +1,4 @@
 const { model, Schema } = require("mongoose");
-//import restaurants from "../data/restaurantList";
 
 const InfoSchema = new Schema({
   restaurantId: {
@@ -71,9 +70,7 @@ module.exports.addReservationInfo = ({
     numberOfPeople,
   });
 
-module.exports.getReservedRestaurants = async (startTime, endTime) => {
-  // const correctDate = new Date(startTime);
-  // console.log(correctDate);
+module.exports.getReservedTables = async (startTime, endTime) => {
   const startTimeOverlap = await InfoModel.find({
     $or: [
       {
@@ -90,29 +87,22 @@ module.exports.getReservedRestaurants = async (startTime, endTime) => {
       },
     ],
   });
-  // console.log(startTimeOverlap);
   return startTimeOverlap;
 };
 
-module.exports.getAvailableTables = async (
-  restaurants,
-  getReservedRestaurants
-) => {
-  const allTables = restaurants.map((restaurant) => restaurant.tableId);
-  // console.log(getReservedRestaurants);
+module.exports.getAvailableTables = (tables, reservedTables) => {
+  const allTables = tables.map((restaurant) => restaurant.tableId);
 
-  const reservedTables = getReservedRestaurants.map((getReservedRestaurant) => {
+  const reservedTableIds = reservedTables.map((getReservedRestaurant) => {
     return getReservedRestaurant.tableId;
   });
-  //console.log(allTables);
-  //console.log(reservedTables);
 
   const availableTables = allTables.filter(
-    (allTable) => !reservedTables.includes(allTable)
+    (allTable) => !reservedTableIds.includes(allTable)
   );
   const availableTablesWithBody = availableTables.map((availableTable) => {
-    for (let i = 0; i < restaurants.length; i++) {
-      if (availableTable === restaurants[i].tableId) return restaurants[i];
+    for (let i = 0; i < tables.length; i++) {
+      if (availableTable === tables[i].tableId) return tables[i];
     }
   });
 
@@ -120,8 +110,6 @@ module.exports.getAvailableTables = async (
 };
 
 module.exports.getAvailableRestaurants = (availableTablesWithBody) => {
-  //console.log(uniqueRestauarants);
-
   const uniqueRestauarants = [];
 
   const restaurantIds = availableTablesWithBody.map(
@@ -131,10 +119,8 @@ module.exports.getAvailableRestaurants = (availableTablesWithBody) => {
   );
 
   for (const restaurantId of restaurantIds) {
-    // for (const uniqueRestaurant of uniqueRestauarants) {
     if (!uniqueRestauarants.includes(restaurantId))
       uniqueRestauarants.push(restaurantId);
-    // }
   }
 
   const availableRestaurantsWithBody = uniqueRestauarants.map(
@@ -147,12 +133,7 @@ module.exports.getAvailableRestaurants = (availableTablesWithBody) => {
   );
 
   return availableRestaurantsWithBody;
-
-  //console.log(uniqueRestauarants);
-  //return uniqueRestauarants;
 };
-
-//console.log(getAvailableRestaurants());
 
 module.exports.getRestaurantInfoById = (restaurantId) =>
   InfoModel.find({ restaurantId });
@@ -165,7 +146,6 @@ module.exports.allReservationsByRestaurantIdAndDate = async (
   restaurantId,
   date
 ) => {
-  console.log(date);
   return await InfoModel.find({ restaurantId, date });
 };
 

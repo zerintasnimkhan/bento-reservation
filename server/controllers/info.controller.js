@@ -1,67 +1,44 @@
 const {
   addReservationInfo,
-  getReservedRestaurants,
+  getReservedTables,
   getAvailableTables,
   getAvailableRestaurants,
-  getRestaurantInfoById,
   allReservationsByRestaurantId,
   allReservationsByRestaurantIdAndDate,
-  changeReservationStatus
 } = require("../models/info.model");
-// const { restaurants } = require("../data/restaurantList.js");
 
 const InfoModel = require("../models/info.model");
 const {
   getAllRestaurants,
   getRestaurantById,
-  getAllTables,
   getRestaurantDetails,
 } = require("../services/restaurant.service.js");
+const { getAllTables, getTable } = require("../services/tables.service.js");
+
 module.exports.createReservation = async (req, res) => {
   try {
-    // console.log(req.body);
-    const {
-      restaurantId,
-      tableId,
-      userId,
-      date,
-      startTime,
-      endTime,
-      numberOfPeople,
-      status,
-      userName,
-      userEmail,
-      phoneNumber,
-      createdAt,
-    } = req.body;
+    const { restaurantId, date, startTime, endTime, numberOfPeople } = req.body;
 
-    if (
-      !userId ||
-      !restaurantId ||
-      !tableId ||
-      !date ||
-      !startTime ||
-      !endTime ||
-      !numberOfPeople
-    ) {
-      return res.status(400).json();
+    if (!restaurantId || !date || !startTime || !endTime || !numberOfPeople) {
+      throw Error(
+        "Please input all the required Data -  restaurantId, tableId, date, start Time, end Time, number of People"
+      );
     }
+    const tableId = await getTable(restaurantId, numberOfPeople, date);
+    // const tableId = 1;
     const reservationData = {
       restaurantId,
-      tableId,
-      userId,
+      tableId: tableId,
+      userId: req.body.user.id,
       date,
       startTime,
       endTime,
       numberOfPeople,
-      status,
-      userName,
-      userEmail,
-      phoneNumber,
-      createdAt,
+      status: "reserved",
+      userName: req.body.user.email,
+      userEmail: req.body.user.email,
+      phoneNumber: "",
     };
-
-    console.log(reservationData);
 
     const savedReservation = await addReservationInfo(reservationData);
 
@@ -79,23 +56,16 @@ module.exports.createReservation = async (req, res) => {
 
 module.exports.allAvailableRestaurants = async (req, res) => {
   try {
-    const { startTime, endTime } = req.body;
-    const reservedRestaurants = await getReservedRestaurants(
-      startTime,
-      endTime
-    );
-    const allTables = await getAllTables();
-    // console.log(allTables)
-    const availableTables = await getAvailableTables(
-      allTables,
-      reservedRestaurants
-    );
+    const { startTime, endTime, numberOfPeople } = req.body;
+    const reservedTables = await getReservedTables(startTime, endTime);
+    const allTables = await getAllTables(numberOfPeople);
+    const availableTables = await getAvailableTables(allTables, reservedTables);
+
     const availableRestaurants = getAvailableRestaurants(availableTables);
 
     const availableRestaurantsWithAllDetails = await getRestaurantDetails(
       availableRestaurants
     );
-    // console.log(availableRestaurantsWithAllDetails);
     res
       .status(200)
       .json({ availableRestaurants: availableRestaurantsWithAllDetails });
@@ -122,7 +92,7 @@ module.exports.getAllRestaurants = async (req, res) => {
       return res.status(404).json({ error: "Restaurant not found" });
     }
 
-    res.json(restaurants);
+    res.status(200).json(restaurants);
   } catch (error) {
     console.error("Error:", error.message);
     res.status(500).json({ error: "Internal Server Error" });
@@ -132,9 +102,13 @@ module.exports.getAllRestaurants = async (req, res) => {
 module.exports.getReservationsByRestaurantId = async (req, res) => {
   try {
     const restaurantId = req.params.restaurantId;
+    if (!restaurantId) throw Error("please add Restaurant Id in the params");
+
     const reservations = await allReservationsByRestaurantId(restaurantId);
-    // console.log(reservations);
-    return res.status(200).json(reservations);
+    if (!reservations)
+      throw Error("Couldn't fetch reservations. MongoDB Error");
+
+    res.status(200).json(reservations);
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "Error getting restaurant by ID" });
@@ -144,10 +118,11 @@ module.exports.getReservationsByRestaurantId = async (req, res) => {
 module.exports.getReservationsByRestaurantIdAndDate = async (req, res) => {
   try {
     const restaurantId = req.params.restaurantId;
-    const date = req.params.date; 
-    // console.log(date)
-    const reservations = await allReservationsByRestaurantIdAndDate(restaurantId,date);
-    // console.log(reservations);
+    const date = req.params.date;
+    const reservations = await allReservationsByRestaurantIdAndDate(
+      restaurantId,
+      date
+    );
     return res.status(200).json(reservations);
   } catch (error) {
     console.error(error);
@@ -155,17 +130,17 @@ module.exports.getReservationsByRestaurantIdAndDate = async (req, res) => {
   }
 };
 
-module.exports.changeReservationStatus = async (req,res) =>{
+module.exports.changeReservationStatus = async (req, res) => {
   try {
-    const reservationId = req.params.reservationId; 
-    const reservationStatus = req.params.status; 
-    // console.log(date)
-    const changedReservation = await InfoModel.changeRerservationStatus(reservationId, reservationStatus);
-    // console.log(reservations);
+    const reservationId = req.params.reservationId;
+    const reservationStatus = req.params.status;
+    const changedReservation = await InfoModel.changeRerservationStatus(
+      reservationId,
+      reservationStatus
+    );
     return res.status(200).json(changedReservation);
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "Error getting restaurant by ID" });
   }
-
-}
+};
