@@ -4,21 +4,21 @@ const getAvailableRestaurants = async (reservationInformation) => {
     const res = await fetch(url, { headers: `${reservationInformation}` });
     return res.formData;*/
 
-    // const response = await fetch("https://bento-reservation-zerin.koyeb.app", {
-    //   method: "GET",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(reservationInformation),
-    // });
-    const response = await fetch("https://localhost:8000", {
+    const response = await fetch("https://bento-reservation-zerin.koyeb.app", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(reservationInformation),
     });
-    console.log(response);
+    // const response = await fetch("https://localhost:8000", {
+    //   method: "GET",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(reservationInformation),
+    // });
+    // console.log(response);
 
     sessionStorage.setItem(key, JSON.stringify(reservationInformation));
   } catch (error) {
