@@ -38,7 +38,7 @@ module.exports.getSuitableTables = async (restaurantId, numberOfPeople) => {
       method: "GET",
       headers: {
         Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Niwic2VydmljZSI6InBvcyIsInJlc3RhdXJhbnRJZCI6MSwiaWF0IjoxNzA2MzYzNjcwLCJleHAiOjE3MDY5Njg0NzB9.285iJ_5sLBJTkhxs3d2cRnvqTels_FlZ7p9xqihFHh0",
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjU5OSwic2VydmljZSI6InBvcyIsInJlc3RhdXJhbnRJZCI6MSwiaWF0IjoxNzA5MjIzMDcyLCJleHAiOjE3MDk4Mjc4NzJ9.HfcnexB2ZnC2X29LuP808HLY8PTS-ebz841A3xTiDq0",
         "Content-Type": "application/json",
       },
     }
