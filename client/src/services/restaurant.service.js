@@ -1,8 +1,12 @@
 export const fetchRestaurantInfo = async (restaurantId) => {
   try {
+    // const response = await fetch(
+    //   `https://bento-reservation-zerin.koyeb.app/getRestaurant/${restaurantId}`
+    // );
     const response = await fetch(
-      `https://bento-reservation-zerin.koyeb.app/getRestaurant/${restaurantId}`
+      `https://localhost:8000/getRestaurant/${restaurantId}`
     );
+
     if (!response.ok) {
       throw new Error(
         `Failed to fetch restaurant details (status: ${response.status})`

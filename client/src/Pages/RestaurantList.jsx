@@ -52,7 +52,7 @@ const RestaurantList = () => {
       reservationInfo.date,
       reservationInfo.endTime
     );
-    fetch("https://bento-reservation-zerin.koyeb.app/availableRestaurants", {
+    fetch("http://localhost:8000/availableRestaurants", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

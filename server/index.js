@@ -9,11 +9,10 @@ const app = express();
 const PORT = process.env.port || 1234;
 
 // app.listen(PORT, () => (console.log(`Listening on: ${PORT}`)));
-app.use(cors({ origin: 'http://localhost:5173' }));
+app.use(cors({ origin: "http://localhost:5173" }));
 app.use(express.json());
 app.use("/", infoRouter);
 //app.options('/availableRestaurants', cors());
-
 
 app.post("/saveToken", (req, res) => {
   const dataToSave = req.body;
