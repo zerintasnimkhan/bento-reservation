@@ -14,6 +14,7 @@ const RestaurantCard = () => {
 
   let startTime = "";
   let endTime = "";
+  let numberOfPeople = "";
 
   function convertToDatetimeString(date, time) {
     try {
@@ -64,12 +65,15 @@ const RestaurantCard = () => {
       reservationInfo.endTime
     );
 
-    fetch("https://bento-reservation-zerin.koyeb.app/availableRestaurants", {
+    numberOfPeople = reservationInfo.numOfPeople;
+
+
+    fetch("http://localhost:8000/availableRestaurants", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ startTime: startTime, endTime: endTime }),
+      body: JSON.stringify({ startTime: startTime, endTime: endTime, numberOfPeople: numberOfPeople }),
     })
       .then((response) => response.json())
       .then((data) => {

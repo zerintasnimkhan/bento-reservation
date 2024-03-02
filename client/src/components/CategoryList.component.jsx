@@ -57,7 +57,7 @@ const CategoryList = () => {
     };
     fetchCuisines();
   }, []);
-  console.log(cuisineInfo);
+  //console.log(cuisineInfo);
 
   return (
     <div style={{ width: "100vw", height: "9vh", overflow: "auto" }}>

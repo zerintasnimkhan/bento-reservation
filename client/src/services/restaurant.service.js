@@ -1,7 +1,7 @@
 export const fetchRestaurantInfo = async (restaurantId) => {
   try {
     const response = await fetch(
-      `https://bento-reservation-zerin.koyeb.app/getRestaurant/${restaurantId}`
+      `http://localhost:8000/getRestaurant/${restaurantId}`
     );
     // const response = await fetch(
     //   `https://localhost:8000/getRestaurant/${restaurantId}`

@@ -188,7 +188,7 @@ const RestaurantInfo = () => {
                 key={i}
                 type="primary"
                 style={{ width: "43vw", height: "10rem" }}
-                src={restaurantInfo?.restaurantAmbianceImages[i]}
+               src={restaurantInfo?.allAmbianceImages[i]}
               ></Image>
             )
           )}

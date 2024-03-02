@@ -21,7 +21,7 @@ function Info() {
   const handleConfirm = () => {
     console.log(JSON.stringify(reservation));
     try {
-      fetch(`https://bento-reservation-zerin.koyeb.app/add`, {
+      fetch(`http://localhost:8000/add`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

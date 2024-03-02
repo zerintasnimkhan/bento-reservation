@@ -18,14 +18,14 @@ const SearchBar = ({ handleSearch, searchData }) => {
   const navigate = useNavigate();
 
   const handleSelectRestaurant = async (restaurantId) => {
-    console.log(restaurantId);
+    //console.log(restaurantId);
     try {
       navigate(`/restaurant/${restaurantId}`);
     } catch (error) {
       console.log(error);
     }
   };
-  console.log(searchData.length);
+  //console.log(searchData.length);
   return (
     <div className="container">
       <div className="searchInput">

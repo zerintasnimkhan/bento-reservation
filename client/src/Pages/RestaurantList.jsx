@@ -52,12 +52,17 @@ const RestaurantList = () => {
       reservationInfo.date,
       reservationInfo.endTime
     );
-    fetch("https://bento-reservation-zerin.koyeb.app/availableRestaurants", {
+    const numberOfPeople = reservationInfo.numOfPeople;
+    fetch("http://localhost:8000/availableRestaurants", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ startTime: startTime, endTime: endTime }),
+      body: JSON.stringify({
+        startTime: startTime,
+        endTime: endTime,
+        numberOfPeople: numberOfPeople,
+      }),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -80,7 +85,7 @@ const RestaurantList = () => {
     }
     setSearchData(arr);
   };
-  console.log(searchData);
+  //console.log(searchData);
 
   return (
     <div style={{ marginTop: "5vh" }}>
