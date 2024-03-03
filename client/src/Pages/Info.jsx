@@ -1,12 +1,15 @@
 import { Flex, Form, Input, Card, Button, Divider } from "antd";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useTokenContext } from "../components/TokenContext";
 import RestaurantInfo from "./RestaurantInfo";
 import { fetchRestaurantInfo } from "../services/restaurant.service";
 
 function Info() {
+  const { tokenFromMarketPlace } = useTokenContext();
+  console.log(tokenFromMarketPlace);
   const { restaurantId } = useParams();
-  const { userId } = useParams();
+  //const { userId } = useParams();
   const navigate = useNavigate();
   const [reservation, setReservation] = useState({});
 
@@ -24,7 +27,7 @@ function Info() {
       fetch(`http://localhost:8000/add`, {
         method: "POST",
         headers: {
-          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZDFiNjcxYzRjY2UwYmMwZDM0OGYxNyIsIm5hbWUiOiJNYXJ5IFF1aWdsZXkiLCJlbWFpbCI6ImFkbWluQGdtYWlsLmNvbSIsImlhdCI6MTcwOTM1MzMyNSwiZXhwIjoxNzExOTQ1MzI1fQ._JPGWWiZQHzwgdEtlF5KWoY2l2-BOK5-9CbiTtEWHak",
+          "token": tokenFromMarketPlace,
           "Content-Type": "application/json",
         },
         body: JSON.stringify(reservation),

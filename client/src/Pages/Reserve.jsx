@@ -1,7 +1,8 @@
 import React from "react";
 import { Form, Button, DatePicker, Image, Select, Flex } from "antd";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTokenContext } from "../components/TokenContext";
 const { Option } = Select;
 import { parse, addHours, format } from "date-fns";
 
@@ -37,6 +38,13 @@ const timeIntervals = [
 ];
 
 const Reserve = () => {
+  //const token  = useParams();
+  let searchParams = new URLSearchParams(window.location.search);
+  let tokenFromMarketPlace = JSON.parse(searchParams.get("token"));
+  //console.log(JSON.parse(tokenFromMarketPlace));
+  const { setTokenFromMarketPlace } = useTokenContext();
+  //console.log(tokenFromMarketPlace);
+
   const [dataToSend, setDataToSend] = useState({
     date: "",
     startTime: "",
@@ -50,11 +58,19 @@ const Reserve = () => {
     numberOfPeople: dataToSend.numOfPeople,
   };
 
+  useEffect(() => {
+    // Set the token in the state when the component mounts
+    setDataToSend((prev) => ({
+      ...prev,
+      tokenFromMarketPlace: tokenFromMarketPlace,
+    }));
+  }, [tokenFromMarketPlace]);
+
   const HandleSaveToken = async () => {
     //const token = reservationData;
     const dataToSendString = await JSON.stringify(dataToSend);
     console.log(dataToSendString);
-    await sessionStorage.setItem("reservationInfo", dataToSendString);
+    sessionStorage.setItem("reservationInfo", dataToSendString);
     console.log("token saved successfully");
   };
   //console.log(token);
@@ -66,6 +82,7 @@ const Reserve = () => {
   const handleFindRestaurant = async () => {
     try {
       await HandleSaveToken();
+      setTokenFromMarketPlace(dataToSend.tokenFromMarketPlace);
       navigate("/restaurant-list");
     } catch (error) {
       console.log(error);
