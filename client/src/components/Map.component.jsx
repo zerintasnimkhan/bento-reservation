@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Map, { Marker } from "react-map-gl";
 //import { Marker } from "antd";
 
-import "./MapComponent.css"; // Import your CSS file for styling
+//import "./MapComponent.css"; // Import your CSS file for styling
 
 const MapComponent = () => {
   //const [visible, setVisible] = useState(false);
@@ -19,9 +19,9 @@ const MapComponent = () => {
   return (
     <Map
       initialViewState={{
-        latitude: 24.904371, 
-        longitude: 91.892136,
-        zoom: 12,
+        latitude: 51.521357, 
+        longitude: -0.123537,
+        zoom: 10,
         bearing: 0,
         pitch: 0,
       }}
