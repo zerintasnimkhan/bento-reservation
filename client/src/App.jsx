@@ -14,9 +14,9 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<First />} />
+        {/* <Route path="/" element={<First />} /> */}
         <Route path="/info/:restaurantId/:userId" element={<Info />} />
-        <Route path="/reserve" element={<Reserve />} />
+        <Route path="/" element={<Reserve />} />
         <Route path="/restaurant/:restaurantId" element={<RestaurantInfo />} />
         <Route
           path="/restaurant-list"
