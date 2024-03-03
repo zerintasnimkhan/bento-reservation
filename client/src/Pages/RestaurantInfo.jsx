@@ -26,7 +26,7 @@ const RestaurantInfo = () => {
       setRestaurantInfo(data);
     });
   }, [restaurantId]);
-  console.log(restaurantInfo);
+  //console.log(restaurantInfo);
   // const {
   //   params: { restaurantId },
   // } = match;

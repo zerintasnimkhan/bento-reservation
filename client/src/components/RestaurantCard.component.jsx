@@ -77,7 +77,7 @@ const RestaurantCard = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("real restaurant list", data);
+        //console.log("real restaurant list", data);
         setAvailableRestaurants(data.availableRestaurants);
       })
       .catch((error) => console.error("Error fetching data:", error));

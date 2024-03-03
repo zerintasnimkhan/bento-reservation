@@ -69,7 +69,7 @@ const Reserve = () => {
   const HandleSaveToken = async () => {
     //const token = reservationData;
     const dataToSendString = await JSON.stringify(dataToSend);
-    console.log(dataToSendString);
+    //console.log(dataToSendString);
     sessionStorage.setItem("reservationInfo", dataToSendString);
     console.log("token saved successfully");
   };

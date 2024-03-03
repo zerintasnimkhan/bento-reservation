@@ -7,7 +7,7 @@ import { fetchRestaurantInfo } from "../services/restaurant.service";
 
 function Info() {
   const { tokenFromMarketPlace } = useTokenContext();
-  console.log(tokenFromMarketPlace);
+  //console.log(tokenFromMarketPlace);
   const { restaurantId } = useParams();
   //const { userId } = useParams();
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ function Info() {
   };
 
   const handleConfirm = () => {
-    console.log(JSON.stringify(reservation));
+    //console.log(JSON.stringify(reservation));
     try {
       fetch(`http://localhost:8000/add`, {
         method: "POST",
@@ -34,7 +34,7 @@ function Info() {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
+          console.log(data, "Reservation added");
           //setReservation(data.reservation);
         })
         .catch((error) => console.error("Error fetching data:", error));
@@ -52,7 +52,7 @@ function Info() {
  
     try {
       const dateTimeString = `${date} ${time}`;
-      console.log(dateTimeString)
+      //console.log(dateTimeString)
       const dateTime = new Date(dateTimeString);
       const dateTimeInLocal = new Date(
         dateTime.toLocaleString("en-US", { timeZone: "Asia/Dhaka" })

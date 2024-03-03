@@ -66,7 +66,7 @@ const RestaurantList = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        //console.log(data);
         setAvailableRestaurants(data.availableRestaurants);
       })
       .catch((error) => console.error("Error fetching data:", error));
