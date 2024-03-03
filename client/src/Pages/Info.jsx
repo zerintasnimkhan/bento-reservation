@@ -24,7 +24,7 @@ function Info() {
   const handleConfirm = () => {
     //console.log(JSON.stringify(reservation));
     try {
-      fetch(`http://localhost:8000/add`, {
+      fetch(`https://bento-reservation-zerin.koyeb.app/add`, {
         method: "POST",
         headers: {
           "token": tokenFromMarketPlace,
