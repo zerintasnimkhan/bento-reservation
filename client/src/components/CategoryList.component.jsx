@@ -37,7 +37,7 @@ const CategoryList = () => {
     const fetchCuisines = async () => {
       try {
         const response = await fetch(
-          `https://sak-skeleton-samiya-kazi.koyeb.app/marketplace/all-cuisines`,
+          "https://sak-skeleton-samiya-kazi.koyeb.app/marketplace/all-cuisines",
           {
             headers: {
               Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MCwic2VydmljZSI6ImNsaWVudEZhY2luZ0FwcHMiLCJyZXN0YXVyYW50SWQiOjAsImlhdCI6MTcwNTgyMDI3NX0.yrc9SKPpH062Cl513HoO7eR2Nbpq-O4j-oAxzuWlUso`,
@@ -57,7 +57,7 @@ const CategoryList = () => {
     };
     fetchCuisines();
   }, []);
-  //console.log(cuisineInfo);
+  console.log(cuisineInfo);
 
   return (
     <div style={{ width: "100vw", height: "9vh", overflow: "auto" }}>
