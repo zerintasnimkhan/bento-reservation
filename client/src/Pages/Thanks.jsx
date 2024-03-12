@@ -30,7 +30,7 @@ const Thanks = ({ reservation }) => {
       >
         Thank you! Your reservation has been confirmed.
       </h2>
-      <div style={{ marginLeft: "5vw" }}>
+      {/* <div style={{ marginLeft: "5vw" }}>
         <h3>Your reservation token no.: 6201</h3>
         <h3>Your reservation name: Zerin Tasnim </h3>
         <h3>Table no.: 4</h3>
@@ -52,7 +52,7 @@ const Thanks = ({ reservation }) => {
         >
           OK
         </Button>
-      </div>
+      </div> */}
     </Flex>
   );
 };
