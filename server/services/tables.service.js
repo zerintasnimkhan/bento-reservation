@@ -9,8 +9,7 @@ module.exports.getAllTables = async (numberOfPeople) => {
   const response = await fetch(`${process.env.ALL_TABLES}${numberOfPeople}`, {
     method: "GET",
     headers: {
-      Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjU5OSwic2VydmljZSI6InBvcyIsInJlc3RhdXJhbnRJZCI6MSwiaWF0IjoxNzA5MjIzMDcyLCJleHAiOjE3MDk4Mjc4NzJ9.HfcnexB2ZnC2X29LuP808HLY8PTS-ebz841A3xTiDq0",
+      Authorization: process.env.POS_TOKEN,
       "Content-Type": "application/json",
     },
   });
@@ -37,8 +36,7 @@ module.exports.getSuitableTables = async (restaurantId, numberOfPeople) => {
     {
       method: "GET",
       headers: {
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjU5OSwic2VydmljZSI6InBvcyIsInJlc3RhdXJhbnRJZCI6MSwiaWF0IjoxNzA5MjIzMDcyLCJleHAiOjE3MDk4Mjc4NzJ9.HfcnexB2ZnC2X29LuP808HLY8PTS-ebz841A3xTiDq0",
+        Authorization: process.env.POS_TOKEN,
         "Content-Type": "application/json",
       },
     }

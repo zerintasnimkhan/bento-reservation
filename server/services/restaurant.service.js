@@ -7,7 +7,7 @@ module.exports.getAllRestaurants = async () => {
     const response = await fetch(apiUrl, {
       method: "GET",
       headers: {
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MCwic2VydmljZSI6ImNsaWVudEZhY2luZ0FwcHMiLCJyZXN0YXVyYW50SWQiOjAsImlhdCI6MTcwNTgyMDI3NX0.yrc9SKPpH062Cl513HoO7eR2Nbpq-O4j-oAxzuWlUso`,
+        Authorization: process.env.SAK_TOKEN,
         "Content-Type": "application/json",
       },
     });
@@ -35,7 +35,7 @@ module.exports.getRestaurantById = async (restaurantId) => {
   const response = await fetch(`${process.env.RESTAURANT_URL}${restaurantId}`, {
     method: "GET",
     headers: {
-      Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MCwic2VydmljZSI6ImNsaWVudEZhY2luZ0FwcHMiLCJyZXN0YXVyYW50SWQiOjAsImlhdCI6MTcwNTgyMDI3NX0.yrc9SKPpH062Cl513HoO7eR2Nbpq-O4j-oAxzuWlUso`,
+      Authorization: process.env.SAK_TOKEN,
       "Content-Type": "application/json",
     },
   });
