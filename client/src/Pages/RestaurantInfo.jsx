@@ -123,7 +123,7 @@ const RestaurantInfo = () => {
                   marginLeft: "-2.5vw",
                 }}
               >
-                52%
+                82%
               </p>
               <Button
                 style={{
@@ -140,7 +140,7 @@ const RestaurantInfo = () => {
             </Flex>
           </div>
         </Flex>
-        <h3 style={{ marginTop: "2vh" }}>
+        {/* <h3 style={{ marginTop: "2vh" }}>
           Get quick service (1 hour duration):
         </h3>
         <Flex
@@ -166,7 +166,7 @@ const RestaurantInfo = () => {
               </Button>
             )
           )}
-        </Flex>
+        </Flex> */}
 
         <h3 style={{ marginTop: "2vh", marginBottom:"1.2vh" }}>About</h3>
         <p style={{ textOverflow: "ellipsis" }}>{restaurantInfo?.about}</p>
