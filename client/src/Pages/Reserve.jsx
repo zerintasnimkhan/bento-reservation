@@ -122,7 +122,7 @@ const Reserve = () => {
   return (
     <div
       className="App"
-      style={{ maxWidth: "100vw", minHeight: "100vh", top: "1vh!important" }}
+      style={{ maxWidth: "100vw", minHeight: "100vh", top: "1vh!important", marginTop: "-14vh" }}
     >
       <div
         className="Container"
@@ -142,17 +142,18 @@ const Reserve = () => {
         <div
           style={{
             position: "absolute",
-            // top: "50%",
-            // left: "50%",
-            // transform: "translate(-50%, -50%)",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
           }}
         >
           <p
             style={{
-              fontSize: "22px",
+              fontSize: "30px",
               fontWeight: "bold",
               color: "white",
               borderColor: "green",
+              fontFamily:"proximanova"
             }}
           >
             Bento Reservations

@@ -1,6 +1,8 @@
 import React from "react";
 import { Flex, Button, Divider } from "antd";
 import { useNavigate } from "react-router-dom";
+import Lottie from "lottie-react";
+import animationData from "../../public/lottie/animationData.json";
 
 const Thanks = ({ reservation }) => {
   const navigate = useNavigate();
@@ -14,7 +16,7 @@ const Thanks = ({ reservation }) => {
   };
   return (
     <Flex style={{ width: "100vw", flexDirection: "column" }}>
-      <div style={{ width: "100%", textAlign: "center", marginTop: "-32.5vh" }}>
+      <div style={{ width: "100%", textAlign: "center" }}>
         <h2>Bento</h2>
         <hr></hr>
       </div>
@@ -26,10 +28,30 @@ const Thanks = ({ reservation }) => {
           color: "green",
           display: "flex",
           justifyContent: "center",
+          fontFamily: "cursive",
+          fontSize: "30px",
         }}
       >
-        Thank you! Your reservation has been confirmed.
+        Thank you!
       </h2>
+
+      <Lottie animationData={animationData} height={200} width={200} />
+      <h2
+        style={{
+          marginLeft: "5vw",
+          marginRight: "5vw",
+          paddingTop: "20vw",
+          paddingBottom: "10vw",
+          color: "green",
+          display: "flex",
+          justifyContent: "center",
+          fontFamily: "cursive",
+          fontSize: "30px",
+        }}
+      >
+        Reservation Confirmed!
+      </h2>
+
       {/* <div style={{ marginLeft: "5vw" }}>
         <h3>Your reservation token no.: 6201</h3>
         <h3>Your reservation name: Zerin Tasnim </h3>
