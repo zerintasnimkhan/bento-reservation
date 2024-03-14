@@ -7,8 +7,7 @@ router.post("/add", attachUser, infoController.createReservation);
 router.post("/availableRestaurants", infoController.allAvailableRestaurants);
 router.get("/getRestaurant/:restaurantId", infoController.fetchRestaurantById);
 router.get("/allRestaurants", infoController.getAllRestaurants);
-router.get(
-  "/allReservations/:restaurantId",
+router.get("/allReservations/:restaurantId",
   infoController.getReservationsByRestaurantId
 );
 router.get(

@@ -25,7 +25,6 @@ module.exports.createReservation = async (req, res) => {
       );
     }
     const tableId = await getTable(restaurantId, numberOfPeople, date);
-    // const tableId = 1;
     const reservationData = {
       restaurantId,
       tableId: tableId,
@@ -41,7 +40,6 @@ module.exports.createReservation = async (req, res) => {
     };
 
     const savedReservation = await addReservationInfo(reservationData);
-
     res
       .status(201)
       .json({ message: "Reservation added", review: savedReservation });

@@ -1,5 +1,3 @@
-//const { default: RestaurantList } = require("../../client/src/Pages/RestaurantList");
-const { restaurants } = require("../data/restaurantList");
 module.exports.getAllRestaurants = async () => {
   try {
     const apiUrl =
@@ -45,7 +43,6 @@ module.exports.getRestaurantById = async (restaurantId) => {
   }
 
   const result = await response.json();
-
   return result;
 };
 
@@ -54,7 +51,6 @@ module.exports.getRestaurantDetails = async (availableRestaurants) => {
   const availableRestaurantsWithDetails = availableRestaurants.map(
     (availableRestaurant) => {
       for (let i = 0; i < restaurantsWithDetails.length; i++) {
-        // console.log(restaurantsWithDetails[i])
         if (availableRestaurant.id === restaurantsWithDetails[i].id) {
           return restaurantsWithDetails[i];
         }

@@ -3,16 +3,11 @@ const mongoose = require("mongoose");
 const config = require("./config");
 const cors = require("cors");
 const infoRouter = require("./routes/info.route");
-const fs = require("fs");
-
 const app = express();
-const PORT = process.env.port || 1234;
 
-// app.listen(PORT, () => (console.log(`Listening on: ${PORT}`)));
 app.use(cors());
 app.use(express.json());
 app.use("/", infoRouter);
-//app.options('/availableRestaurants', cors());
 
 app.post("/saveToken", (req, res) => {
   const dataToSave = req.body;
