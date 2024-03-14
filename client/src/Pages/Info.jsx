@@ -2,32 +2,28 @@ import { Flex, Form, Input, Card, Button, Divider } from "antd";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTokenContext } from "../components/TokenContext";
-import RestaurantInfo from "./RestaurantInfo";
 import { fetchRestaurantInfo } from "../services/restaurant.service";
 
 function Info() {
   const { tokenFromMarketPlace } = useTokenContext();
-  //console.log(tokenFromMarketPlace);
   const { restaurantId } = useParams();
-  //const { userId } = useParams();
   const navigate = useNavigate();
   const [reservation, setReservation] = useState({});
 
   const handleEdit = async () => {
     try {
-      navigate("/reserve");
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
   };
 
   const handleConfirm = () => {
-    //console.log(JSON.stringify(reservation));
     try {
       fetch(`https://bento-reservation-zerin.koyeb.app/add`, {
         method: "POST",
         headers: {
-          "token": tokenFromMarketPlace,
+          token: tokenFromMarketPlace,
           "Content-Type": "application/json",
         },
         body: JSON.stringify(reservation),
@@ -35,7 +31,6 @@ function Info() {
         .then((response) => response.json())
         .then((data) => {
           console.log(data, "Reservation added");
-          //setReservation(data.reservation);
         })
         .catch((error) => console.error("Error fetching data:", error));
 
@@ -45,14 +40,9 @@ function Info() {
     }
   };
 
-  let startTime = "";
-  let endTime = "";
-
   function convertToDatetimeString(date, time) {
- 
     try {
       const dateTimeString = `${date} ${time}`;
-      //console.log(dateTimeString)
       const dateTime = new Date(dateTimeString);
       const dateTimeInLocal = new Date(
         dateTime.toLocaleString("en-US", { timeZone: "Asia/Dhaka" })
@@ -73,8 +63,6 @@ function Info() {
         ("00" + dateTimeInLocal.getMilliseconds()).slice(-3) +
         "Z";
 
-      // const isoDate = dateTimeInLocal.toISOString();
-
       return isoString;
     } catch (error) {
       console.error("Error converting to datetime:", error);
@@ -85,10 +73,9 @@ function Info() {
     const reservationInfo = JSON.parse(
       sessionStorage.getItem("reservationInfo")
     );
-    //setReservation(data.reservationInfo);
 
     const date = reservationInfo.date;
-    
+
     const startTime = convertToDatetimeString(
       reservationInfo.date,
       reservationInfo.startTime
@@ -98,23 +85,24 @@ function Info() {
       reservationInfo.endTime
     );
     const numberOfPeople = reservationInfo.numOfPeople;
-    //setReservation(data.reservationInfo);
     const userId = 1;
     const tableId = 1;
 
-    const convertedDate = convertToDatetimeString(reservationInfo.date, `12:00 AM`)
+    const convertedDate = convertToDatetimeString(
+      reservationInfo.date,
+      `12:00 AM`
+    );
 
     setReservation({
       tableId,
       restaurantId,
       userId,
-      date : convertedDate,
+      date: convertedDate,
       startTime,
       endTime,
       numberOfPeople,
     });
   }, [restaurantId]);
-  // console.log(reservation);
 
   const [restaurantDetails, setRestaurantDetails] = useState(null);
 
@@ -123,7 +111,6 @@ function Info() {
       setRestaurantDetails(data);
     });
   }, [restaurantId]);
-  //console.log(restaurantDetails);
 
   const formatDate = (inputDate) => {
     const options = { year: "numeric", month: "short", day: "numeric" };

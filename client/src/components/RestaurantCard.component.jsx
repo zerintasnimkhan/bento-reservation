@@ -1,15 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Card, Flex } from "antd";
 import { useNavigate } from "react-router-dom";
-//import { accessToken } from "mapbox-gl";
-import SearchBar from "./SearchBar.component";
 
 const RestaurantCard = () => {
-  //const [restaurants, setRestaurants] = useState();
-
-  // const restaurantData = () => {
-  //   setAvailableRestaurants();
-  // }
   const navigate = useNavigate();
 
   let startTime = "";
@@ -40,8 +33,6 @@ const RestaurantCard = () => {
         ("00" + dateTimeInLocal.getMilliseconds()).slice(-3) +
         "Z";
 
-      // const isoDate = dateTimeInLocal.toISOString();
-
       return isoString;
     } catch (error) {
       console.error("Error converting to datetime:", error);
@@ -67,17 +58,19 @@ const RestaurantCard = () => {
 
     numberOfPeople = reservationInfo.numOfPeople;
 
-
     fetch("https://bento-reservation-zerin.koyeb.app/availableRestaurants", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ startTime: startTime, endTime: endTime, numberOfPeople: numberOfPeople }),
+      body: JSON.stringify({
+        startTime: startTime,
+        endTime: endTime,
+        numberOfPeople: numberOfPeople,
+      }),
     })
       .then((response) => response.json())
       .then((data) => {
-        //console.log("real restaurant list", data);
         setAvailableRestaurants(data.availableRestaurants);
       })
       .catch((error) => console.error("Error fetching data:", error));

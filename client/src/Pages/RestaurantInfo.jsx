@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Image, Flex, Layout } from "antd";
 import { useNavigate } from "react-router-dom";
-//import "./App.css";
-//import Kard from "../components/Kard.component";
 import MapComponent from "../components/Map.component";
-//import Reserve from "./Reserve";
 import { useParams } from "react-router-dom";
 import { fetchRestaurantInfo } from "../services/restaurant.service";
 const Footer = Layout;
@@ -26,11 +23,6 @@ const RestaurantInfo = () => {
       setRestaurantInfo(data);
     });
   }, [restaurantId]);
-  //console.log(restaurantInfo);
-  // const {
-  //   params: { restaurantId },
-  // } = match;
-  //console.log(restaurantId);
 
   const navigate = useNavigate();
 
@@ -52,7 +44,6 @@ const RestaurantInfo = () => {
           textAlign: "center",
           color: "white",
           opacity: "1.8",
-          //filter: "brightness (50%)"
         }}
       >
         <Image
@@ -140,35 +131,7 @@ const RestaurantInfo = () => {
             </Flex>
           </div>
         </Flex>
-        {/* <h3 style={{ marginTop: "2vh" }}>
-          Get quick service (1 hour duration):
-        </h3>
-        <Flex
-          wrap="wrap"
-          gap="large"
-          style={{ marginTop: "1vh", marginBottom: "1vh" }}
-        >
-          {Array.from(
-            {
-              length: 3,
-            },
-            (_, i) => (
-              <Button
-                key={i}
-                type="primary"
-                style={{
-                  width: "7rem",
-                  height: "2.5rem",
-                  backgroundColor: "#038851",
-                }}
-              >
-                8:00 pm
-              </Button>
-            )
-          )}
-        </Flex> */}
-
-        <h3 style={{ marginTop: "2vh", marginBottom:"1.2vh" }}>About</h3>
+        <h3 style={{ marginTop: "2vh", marginBottom: "1.2vh" }}>About</h3>
         <p style={{ textOverflow: "ellipsis" }}>{restaurantInfo?.about}</p>
       </div>
       <div style={{ marginLeft: "5vw", marginRight: "5vw", maxWidth: "90vw" }}>
@@ -176,7 +139,7 @@ const RestaurantInfo = () => {
       </div>
       <div style={{ marginLeft: "5vw", paddingRight: "5vw" }}>
         <div>
-          <h3 style={{ marginBottom:"1.2vh" }}>Photos</h3>
+          <h3 style={{ marginBottom: "1.2vh" }}>Photos</h3>
         </div>
         <Flex wrap="wrap" gap="middle" style={{ width: "90vw" }}>
           {Array.from(
@@ -188,26 +151,12 @@ const RestaurantInfo = () => {
                 key={i}
                 type="primary"
                 style={{ width: "43vw", height: "10rem" }}
-               src={restaurantInfo?.allAmbianceImages[i]}
+                src={restaurantInfo?.allAmbianceImages[i]}
               ></Image>
             )
           )}
         </Flex>
       </div>
-      {/* <div style={{ marginLeft: "5vw", marginRight: "5vw", maxWidth: "40vw" }}>
-        <h3>What are people saying?</h3>
-
-        <Kard></Kard>
-        <br></br>
-        <Kard></Kard>
-        <br></br>
-        <Kard></Kard>
-        <br></br>
-        <Kard></Kard>
-      </div> */}
-      {/* <p style={{ fontSize: "18px", paddingLeft: "60px", color: "#038851" }}>
-        Read reviews for Z & Y Restaurant
-      </p> */}
       <br></br>
       <hr></hr>
       <div

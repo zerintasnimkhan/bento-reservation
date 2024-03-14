@@ -1,35 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Flex } from "antd";
-//import fastfood from "../assets/fastfood.png";
-
-// const categories = [
-//   {
-//     id: "aszd",
-//     name: "Fastfood",
-//     image: "https://i.ibb.co/xLrKybC/fastfood.png",
-//   },
-//   {
-//     id: "asyd",
-//     name: "Fastfood",
-//     image: "https://i.ibb.co/xLrKybC/fastfood.png",
-//   },
-
-//   {
-//     id: "asvdsss",
-//     name: "Fastfood",
-//     image: "https://i.ibb.co/xLrKybC/fastfood.png",
-//   },
-//   {
-//     id: "asvsd",
-//     name: "Fastfood",
-//     image: "https://i.ibb.co/xLrKybC/fastfood.png",
-//   },
-//   {
-//     id: "asvdw",
-//     name: "Fastfood",
-//     image: "https://i.ibb.co/xLrKybC/fastfood.png",
-//   },
-// ];
 
 const CategoryList = () => {
   const [cuisineInfo, setCuisineInfo] = useState(null);
@@ -57,7 +27,6 @@ const CategoryList = () => {
     };
     fetchCuisines();
   }, []);
-  console.log(cuisineInfo);
 
   return (
     <div style={{ width: "100vw", height: "9vh", overflow: "auto" }}>

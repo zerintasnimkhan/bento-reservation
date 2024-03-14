@@ -28,8 +28,6 @@ const RestaurantList = () => {
         ("00" + dateTimeInLocal.getMilliseconds()).slice(-3) +
         "Z";
 
-      // const isoDate = dateTimeInLocal.toISOString();
-
       return isoString;
     } catch (error) {
       console.error("Error converting to datetime:", error);
@@ -66,7 +64,6 @@ const RestaurantList = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        //console.log(data);
         setAvailableRestaurants(data.availableRestaurants);
       })
       .catch((error) => console.error("Error fetching data:", error));
@@ -74,7 +71,6 @@ const RestaurantList = () => {
 
   const [searchData, setSearchData] = useState([]);
   const handleSearch = (e) => {
-    //console.log(e.target.value);
     let searchData = e.target.value;
     let arr = [];
     if (searchData) {
@@ -85,7 +81,6 @@ const RestaurantList = () => {
     }
     setSearchData(arr);
   };
-  //console.log(searchData);
 
   return (
     <div style={{ marginTop: "5vh" }}>

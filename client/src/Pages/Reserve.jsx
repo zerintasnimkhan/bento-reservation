@@ -38,12 +38,9 @@ const timeIntervals = [
 ];
 
 const Reserve = () => {
-  //const token  = useParams();
   let searchParams = new URLSearchParams(window.location.search);
   let tokenFromMarketPlace = JSON.parse(searchParams.get("token"));
-  //console.log(JSON.parse(tokenFromMarketPlace));
   const { setTokenFromMarketPlace } = useTokenContext();
-  //console.log(tokenFromMarketPlace);
 
   const [dataToSend, setDataToSend] = useState({
     date: "",
@@ -59,7 +56,6 @@ const Reserve = () => {
   };
 
   useEffect(() => {
-    // Set the token in the state when the component mounts
     setDataToSend((prev) => ({
       ...prev,
       tokenFromMarketPlace: tokenFromMarketPlace,
@@ -67,13 +63,10 @@ const Reserve = () => {
   }, [tokenFromMarketPlace]);
 
   const HandleSaveToken = async () => {
-    //const token = reservationData;
     const dataToSendString = await JSON.stringify(dataToSend);
-    //console.log(dataToSendString);
     sessionStorage.setItem("reservationInfo", dataToSendString);
     console.log("token saved successfully");
   };
-  //console.log(token);
 
   const dateFormat = "ddd, MMM D, YYYY";
 
@@ -89,40 +82,37 @@ const Reserve = () => {
     }
   };
   const handleDatePicker = (e) => {
-    //console.log(e.$d.getUTCDate());
     const date = `${e.$d.getFullYear()}-${
       e.$d.getMonth() + 1
     }-${e.$d.getUTCDate()}`;
     setDataToSend((prev) => ({ ...prev, date: date }));
   };
 
-  //console.log(dataToSend);
-
   const handleEndTime = (timeInterval) => {
     const originalTime = parse(dataToSend.startTime, "h:mm a", new Date());
-    // Step 2: Add 14 hours to the Date object to move from 11pm to 1pm
     const convertedTime = addHours(originalTime, timeInterval);
 
-    // Format the result as a string (optional)
     const formattedTime = format(convertedTime, "h:mm a");
     setDataToSend((prev) => ({ ...prev, endTime: formattedTime }));
   };
-  //console.log(dataToSend);
 
   const handleTime = (time) => {
     setDataToSend((prev) => ({ ...prev, startTime: time }));
   };
-  //console.log(dataToSend);
 
   const handleNumOfPeople = (people) => {
     setDataToSend((prev) => ({ ...prev, numOfPeople: people }));
   };
-  //console.log(dataToSend);
 
   return (
     <div
       className="App"
-      style={{ maxWidth: "100vw", minHeight: "100vh", top: "1vh!important", marginTop: "-14vh" }}
+      style={{
+        maxWidth: "100vw",
+        minHeight: "100vh",
+        top: "1vh!important",
+        marginTop: "-14vh",
+      }}
     >
       <div
         className="Container"
@@ -153,7 +143,7 @@ const Reserve = () => {
               fontWeight: "bold",
               color: "white",
               borderColor: "green",
-              fontFamily:"proximanova"
+              fontFamily: "proximanova",
             }}
           >
             Bento Reservations
@@ -262,7 +252,6 @@ const Reserve = () => {
                     backgroundColor: "#038851",
                   }}
                   onClick={() => handleEndTime(timeInterval.value)}
-                  // disabled={!dataToSend.startTime}
                 >
                   {timeInterval.label}
                 </Button>

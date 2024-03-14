@@ -1,13 +1,8 @@
 "use-client";
 import React, { useState } from "react";
-import Map, { Marker } from "react-map-gl";
-//import { Marker } from "antd";
-
-//import "./MapComponent.css"; // Import your CSS file for styling
+import Map from "react-map-gl";
 
 const MapComponent = () => {
-  //const [visible, setVisible] = useState(false);
-
   const [viewport, setViewport] = useState({
     width: "100%",
     height: 400,
